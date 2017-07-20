@@ -4,9 +4,9 @@ import {Component} from 'angular2/core';
     selector: 'contact-details',
     template: `<h3>I am Contact Details Component</h3>
         <div class="showDetails">
-            <p>{{contactDetails.ime}}</p>
-            <p>{{contactDetails.prezime}}</p>
-            <p>{{contactDetails.phone}}</p>
+            <p>{{contactDetails.FirstName}}</p>
+            <p>{{contactDetails.LastName}}</p>
+            <p>{{contactDetails.Phone}}</p>
             <p>{{contactDetails.email}}</p>
         </div>
     `,
