@@ -2,37 +2,45 @@ import {Component} from 'angular2/core';
 
 @Component({
     selector: 'my-app',
-    template: `
-       <div class="container">
-        <div class="row main-template">
-            <div class="col-xs-4">
-                <h4 [class.clicked]="show">{{details.ime}} {{details.prezime}}</h4>
-            </div>
-            <div class="col-xs-4">
-                <input type="text" [(ngModel)]="details.ime" class="form-control" /> 
-            </div>
-            <div class="col-xs-4">
-                <button class="btn btn-default" (click)="showDetails()">{{show==true ? "Hide Details" : "Show Details"}}</button>
-            </div>
-            <div class="col-xs-12 details" *ngIf="show">
-                <p>Phone Number: {{details.phone}}</p>
-                <p>Email: {{details.email}}</p>
-            </div>
+    template:`
+    <div class="container">
+        <ul class="contact-list">
+            <li *ngFor="#contact of contactList">
+                {{contact.ime}}
+                {{contact.prezime}}
+                <a (click)="showDetails(contact)">Show Details</a>
+            </li>
+        </ul>
+        <div class="showDetails" *ngIf="show">
+            <p>{{selected.ime}}</p>
+            <p>{{selected.prezime}}</p>
+            <p>{{selected.phone}}</p>
+            <p>{{selected.email}}</p>
+            <button (click)="close()" class="btn btn-danger">close</button>
         </div>
     </div>
-    `,
+    `
 })
+
 export class AppComponent {
-    public details = {
-        ime:"Elena", prezime:"Trajkovska", phone: "123457456", email: "elena@gmail.com" 
-    }
+    public contactList = [
+        {ime:"Elena", prezime:"Trajkovska", phone: "123457456", email: "elena@gmail.com"},
+        {ime:"Bojan", prezime:"Simoski", phone: "123457456", email: "elena@gmail.com"},
+        {ime:"Marija", prezime:"Milosevska", phone: "123457456", email: "elena@gmail.com"},
+        {ime:"Oliver", prezime:"Trajkovski", phone: "123457456", email: "elena@gmail.com"},
+    ];
+public selected = {};
     public show = false;
-    showDetails(){
-        if (!this.show){
+    showDetails(contact){
+        this.selected = contact;
+        if(this.selected){
             this.show = true;
         }
-        else {
+        else{
             this.show = false;
         }
+    }
+    close (){
+        this.show=false;
     }
 }
