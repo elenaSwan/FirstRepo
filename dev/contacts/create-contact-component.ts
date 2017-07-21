@@ -7,42 +7,51 @@ import {OnInit} from 'angular2/core';
 @Component ({
     template: `<h3>Create new component</h3>
      <div class="create-contact row">
+     <form #myForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="details">
                 <label class="label col-xs-3 col-md-1 ">First Name: </label>
-                <div class="col-xs-9 col-md-11"><input type="text" #firstName /></div>
+                <div class="col-xs-9 col-md-11">
+                    <input type="text" ngControl="firstName" [(ngModel)] ="newContact.FirstName"  required/>
+                </div>
             </div>
             <div class="details">
                 <label class="label col-xs-3 col-md-1">Last Name: </label>
-                <div class="col-xs-9 col-md-11"> <input type="text" #lastName value="{{passedlastName}}"/></div>
+                <div class="col-xs-9 col-md-11"> 
+                    <input type="text" ngControl="lastName" [(ngModel)]="newContact.LastName" required />
+                </div>
             </div>
             <div class="details">
                 <label class="label col-xs-3 col-md-1">Phone: </label>
-                <div class="col-xs-9 col-md-11"> <input type="text"#phone /></div>
+                <div class="col-xs-9 col-md-11"> 
+                    <input type="text" ngControl="phone" [(ngModel)]="newContact.Phone" required />
+                </div>
             </div>
             <div class="details">
                 <label class="label col-xs-3 col-md-1">Email: </label>
-                <div class="col-xs-9 col-md-11"> <input type="text"#email /></div>
+                <div class="col-xs-9 col-md-11"> 
+                    <input type="text" ngControl="email" [(ngModel)]="newContact.email" required />
+                </div>
             </div>
             <div class="btn-create">
-                <button class="btn btn-default"(click)="onAddContact(firstName.value, lastName.value, phone.value, email.value)">Create Contact</button>
+                <button class="btn btn-default" type="submit">Create Contact</button>
             </div>
+            </form>
         </div>
     `,
     providers: [contactService]
 })
 
 export class CreateContactcomponent implements OnInit{
-    public passedlastName ="";
+    
+    newContact: contactInterface;
+
     constructor(private _contactServices: contactService, private _router: Router, private _routeParams: RouteParams){
     }
-    onAddContact (firstname, lastName, phone, email){
-        // const dummyContact = {FirstName:"Dummy", LastName:"helloo", Phone:"", email:""};
-        let contact: contactInterface={FirstName:firstname, LastName:lastName, Phone:phone, email:email};
-        this._contactServices.insertContacts(contact);
-
-        this._router.navigate(['ContactsRoute'])
+    onsubmit(){
+        this._contactServices.insertContacts(this.newContact);
+        this._router.navigate(['ContactsRoute']); //Navigate Back
     }
     ngOnInit():any{
-        this.passedlastName=this._routeParams.get('lastName');
+        this.newContact = {FirstName:'', LastName: this._routeParams.get('lastName'), Phone:'', email:''}
     }
 }
