@@ -16,6 +16,13 @@ a {
 .contact-list {
     li {
         list-style: none;
+        transition: padding 0.3s;
+        &:hover {
+            padding: 0 0 0 8px;
+            border-left: 2px solid blue;
+            color: blue;
+            font-weight: bold;
+        }
     }
 }
 
@@ -24,4 +31,17 @@ a {
     border-radius: 3px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     padding: 15px;
+    display: inline-block;
+    .label {
+        display: inline-block;
+        color: black;
+    }
+}
+
+.show-details {
+    .label {
+        color: black;
+        display: inline-block;
+        text-align: left;
+    }
 }

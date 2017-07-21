@@ -5,15 +5,14 @@ import {contactInterface} from './contact-interface';
 import {OnInit} from 'angular2/core';
 @Component ({
     selector: 'contact-list-component',
-    template: `<h3>I am contact List Compoenent</h3>
-        <ul>
-            <li *ngFor="#contact of contactList">
+    template: `
+        <ul class="contact-list">
+            <li *ngFor="#contact of contactList" (click)="showDetails(contact)">
             {{contact.FirstName}}
             {{contact.LastName}}
-            <a (click)="showDetails(contact)">Show Details</a>
             </li>
         </ul>
-        <contact-details [contactDetails]="selected" *ngIf="show"></contact-details>`,
+        <contact-details [contactDetails]="selected"></contact-details>`,
     directives: [contactDetailsComponent], 
     providers: [contactService]
 })
