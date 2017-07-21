@@ -2,6 +2,8 @@ import {Component} from 'angular2/core';
 import {contactService} from './contact-service';
 import {contactInterface} from './contact-interface';
 import {Router} from 'angular2/router';
+import{RouteParams} from 'angular2/router';
+import {OnInit} from 'angular2/core';
 @Component ({
     template: `<h3>Create new component</h3>
      <div class="create-contact row">
@@ -11,7 +13,7 @@ import {Router} from 'angular2/router';
             </div>
             <div class="details">
                 <label class="label col-xs-3 col-md-1">Last Name: </label>
-                <div class="col-xs-9 col-md-11"> <input type="text" #lastName/></div>
+                <div class="col-xs-9 col-md-11"> <input type="text" #lastName value="{{passedlastName}}"/></div>
             </div>
             <div class="details">
                 <label class="label col-xs-3 col-md-1">Phone: </label>
@@ -29,8 +31,9 @@ import {Router} from 'angular2/router';
     providers: [contactService]
 })
 
-export class CreateContactcomponent {
-    constructor(private _contactServices: contactService, private _router: Router){
+export class CreateContactcomponent implements OnInit{
+    public passedlastName ="";
+    constructor(private _contactServices: contactService, private _router: Router, private _routeParams: RouteParams){
     }
     onAddContact (firstname, lastName, phone, email){
         // const dummyContact = {FirstName:"Dummy", LastName:"helloo", Phone:"", email:""};
@@ -38,5 +41,8 @@ export class CreateContactcomponent {
         this._contactServices.insertContacts(contact);
 
         this._router.navigate(['ContactsRoute'])
+    }
+    ngOnInit():any{
+        this.passedlastName=this._routeParams.get('lastName');
     }
 }
