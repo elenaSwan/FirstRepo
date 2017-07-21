@@ -11,8 +11,9 @@ import {OnInit} from 'angular2/core';
             <div class="details">
                 <label class="label col-xs-3 col-md-1 ">First Name: </label>
                 <div class="col-xs-9 col-md-11">
-                    <input type="text" ngControl="firstName" [(ngModel)] ="newContact.FirstName"  required/>
-                </div>
+                    <input type="text" ngControl="firstName" [(ngModel)] ="newContact.FirstName" #firstNameError="ngForm" required/>
+                    <span *ngIf="!firstNameError.valid">Enter your Name</span>
+                    </div>
             </div>
             <div class="details">
                 <label class="label col-xs-3 col-md-1">Last Name: </label>
@@ -33,7 +34,7 @@ import {OnInit} from 'angular2/core';
                 </div>
             </div>
             <div class="btn-create">
-                <button class="btn btn-default" type="submit">Create Contact</button>
+                <button class="btn btn-default" type="submit" [disabled]="!myForm.form.valid">Create Contact</button>
             </div>
             </form>
         </div>
@@ -47,7 +48,7 @@ export class CreateContactcomponent implements OnInit{
 
     constructor(private _contactServices: contactService, private _router: Router, private _routeParams: RouteParams){
     }
-    onsubmit(){
+    onSubmit(){
         this._contactServices.insertContacts(this.newContact);
         this._router.navigate(['ContactsRoute']); //Navigate Back
     }
