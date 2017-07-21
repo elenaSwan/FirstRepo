@@ -16,7 +16,7 @@ import {CreateContactcomponent} from './contacts/create-contact-component';
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Angular 2</a>
+            <a class="navbar-brand">Angular 2</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
